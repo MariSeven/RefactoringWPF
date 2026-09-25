@@ -13,14 +13,10 @@ namespace RefactoringWPF
         {
             InitializeComponent();
 
-            // DI через конструктор (пункт 6)
             IOrderService service = new OrderService();
             _viewModel = new MainViewModel(service);
 
-            // Привязка коллекции (пункт 2 — ObservableCollection уведомляет UI)
             dgOrders.ItemsSource = _viewModel.Orders;
-
-            // Назначаем команды
             _viewModel.AddOrderAction = () =>
             {
                 if (_viewModel.TryAddOrder(
@@ -56,8 +52,6 @@ namespace RefactoringWPF
             lblTotal.Text = _viewModel.TotalText;
             _viewModel.NotifyRefresh();
         }
-
-        // Понятные имена методов (пункт 13)
         private void BtnAdd_Click(object sender, RoutedEventArgs e) =>
             _viewModel.AddOrderAction?.Invoke();
 
